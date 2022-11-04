@@ -1,5 +1,7 @@
 # Nodejs CSV to Markdown converter
 
+UNDER DEVELOPMENT, USE AT OWN RISK ;)
+
 This little helper script converts every row of a give CSV file to simple Markdown files.
 
 This will NOT create a Markdown table.
