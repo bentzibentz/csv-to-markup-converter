@@ -5,11 +5,27 @@ This little helper script converts every row of a give CSV file to simple Markdo
 This will NOT create a Markdown table.
 
 ## Usage
-Coming soon…
+To install run ```npm i csv-to-markup-converter```
 
 ### Template
-You can just update the ``basic.md`` template to fit your needs or just add another template file.
-All templates must be placed at the template directory.
+Add a markdown template file like the example and store it in your project.
+```markdown
+---
+id: "{{id}}"
+title: "{{title}}"
+slug: "{{slug}}"
+genres: "{{genres}}"
+release: "{{release}}"
+---
+
+{{description}}
+```
+
+### Output folder
+Add a output folder to your project.
+
+### Start generator
+Run ```npm run convert convert-csv-md```
 
 ### User input
 
