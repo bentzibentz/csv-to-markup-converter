@@ -3,6 +3,7 @@ const { parse } = require("csv-parse");
 const slugify = require('slugify');
 const prompt = require('prompt-sync')({sigint: true});
 const clc = require("cli-color");
+const { resolve } = require('path');
 let { render } = require("mustache");
 
 
@@ -27,7 +28,7 @@ const parseCsvFile = async (file, from, to = null, useColumns = false) => {
 }
 
 // Generate .md files based on given data
-const generateMd = (rows, templateName) => {
+const generateMd = (rows, templateName, outputPath) => {
 
     if (!rows.length) {
         console.log('No variables could be generated from the CVS columns, please check your CSV and try again.');
@@ -57,7 +58,7 @@ const generateMd = (rows, templateName) => {
         console.log('Slug and filename generated based on key: ', clc.red(selectedKey));
     }
 
-    let template = fs.readFileSync(`./template/${templateName}`).toString();
+    let template = fs.readFileSync(`${templateName}`).toString();
     rows.forEach( (row) => {
 
         keys.forEach((key, i) => {
@@ -67,8 +68,8 @@ const generateMd = (rows, templateName) => {
         schema.slug = slugify(row[selectedKey], {lower: true, strict: true});
 
         let output = render(template, schema)
-        fs.writeFileSync(`./md-files/${schema.slug}.md`, output);
-        console.log(`~ Markdown file ${schema.slug}.md generated.`);
+        fs.writeFileSync(`${outputPath}/${schema.slug}.md`, output);
+        console.log(`~ Markdown file ${clc.red(schema.slug)}.md generated.`);
     })
 
 }
@@ -76,11 +77,26 @@ const generateMd = (rows, templateName) => {
 // Init parser and get user input
 const initCsvParser = () => {
 
-    const path = prompt('Enter path to .csv file (e.g. ./demo.csv): ');
-    console.log('Your path: ', clc.red(path));
+    let csvPath = prompt('Enter path to .csv file (e.g. ./demo.csv): ');
+    if (!csvPath) {
+        csvPath = prompt('Enter path to .csv file (e.g. ./demo.csv): ');
+    }
+    console.log('Your path: ', clc.red(csvPath));
+    const path = resolve(process.cwd(), csvPath);
 
-    const templateName = prompt('Enter template name: ', 'basic.md');
-    console.log('Your template name: ', clc.red(templateName));
+    let mdPath = prompt('Enter path to .md template file (e.g. ./basic.md): ');
+    if (!mdPath) {
+        mdPath = prompt('Enter path to .md template file (e.g. ./basic.md): ');
+    }
+    console.log('Your template name: ', clc.red(mdPath));
+    const templateName = resolve(process.cwd(), mdPath);
+
+    let mdFilesPath = prompt('Enter path to output directory, the directory must exist (e.g. ./md-files): ');
+    if (!mdFilesPath) {
+        mdFilesPath = prompt('Enter path to .md template file (e.g. ./basic.md): ');
+    }
+    console.log('Your output directory: ', clc.red(mdFilesPath));
+    const outputPath = resolve(process.cwd(), mdFilesPath);
 
     const from = prompt('Enter start from line: ', 1);
     console.log('Your start from Line: ', clc.red(Number(from)));
@@ -94,7 +110,7 @@ const initCsvParser = () => {
     // Parse .csv to get column and row data and start .md file generation
     parseCsvFile(path, from, till ? Number(till) : null, useColumns).then(
         (res) => {
-            generateMd(res, templateName);
+            generateMd(res, templateName, outputPath);
         }
     ).catch(
         (err) => {
