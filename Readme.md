@@ -15,11 +15,12 @@ All templates must be placed at the template directory.
 
 You get promoted to enter some data:
 
-1. ``path`` to your .csv file, e.g. ``./demo.csv``
-2. ``templateName`` the name of your template, placed at the template directory, default value ``basic.md``
-3. ``from`` to line where to start from at your .csv file, default value ``1``
-4. ``till`` to line where to stop at your .csv file, default value ``null`` to stop at the end of the .csv
-5. The available markdown templates are generated based on your CSV column names. All available variables are promoted to you at the console.
-6. ``variable`` based on the entered variable the filename and slug are generates. Fallback: ``id``
+1. ``input`` to your .csv file, e.g. ``./demo.csv``
+2. ``template path`` the path and name of your template, e.g. ``./template/demo.csv``
+3. ``output path`` the path to your output directory, e.g. ``./output``, directory must exist
+4. ``from`` to line where to start from at your .csv file, default value ``1``
+5. ``till`` to line where to stop at your .csv file, default value ``null`` to stop at the end of the .csv
+6. The available markdown templates are generated based on your CSV column names. All available variables are promoted to you at the console.
+7. ``variable`` based on the entered variable the filename and slug are generates. Fallback: ``id``
 
 Now your markdown files are generated, every generated file ist logged to the console.
