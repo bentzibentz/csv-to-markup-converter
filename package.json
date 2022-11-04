@@ -4,7 +4,7 @@
   "description": "Convert csv rows to md files with nodejs",
   "main": "index.js",
   "scripts": {
-    "convert": "convertCsvToMarkdown"
+    "convert-csv-md": "convertCsvToMarkdown"
   },
   "author": "Fabian Bentz Webentwicklung <info@fabianbentz.de>",
   "repository": {
