@@ -1,17 +1,34 @@
 {
   "name": "csv-to-markup-converter",
-  "version": "0.0.0",
-  "description": "Convert csv rows to md files with javascript",
+  "version": "0.0.1",
+  "description": "Convert csv rows to md files with nodejs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "convert": "node index.js"
   },
-  "author": "",
+  "author": "Fabian Bentz Webentwicklung <info@fabianbentz.de>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bentzibentz/csv-to-markup-converter"
+  },
+  "keywords": [
+    "csv",
+    "md",
+    "markdown",
+    "converter",
+    "node",
+    "nodejs",
+    "javascript",
+    "generator",
+    "awesome-list"
+  ],
   "license": "ISC",
   "dependencies": {
+    "cli-color": "^2.0.3",
     "csv": "^6.2.1",
     "csv-parse": "^5.3.1",
     "mustache": "^4.2.0",
+    "prompt-sync": "^4.2.0",
     "slugify": "^1.6.5"
   }
 }
